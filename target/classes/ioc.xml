@@ -1,12 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!--
     <bean id="person" class="com.onisun.entity.Person">
         <property name="id" value="1"/>
         <property name="name" value="小莉"/>
         <property name="age" value="18"/>
         <property name="hobby" value="干饭"/>
+    </bean>-->
+
+<!--    通过构造器给bean对象赋值-->
+  <!--  <bean id="person2" class="com.onisun.entity.Person">
+        <constructor-arg name="id" value="2"/>
+        <constructor-arg name="name" value="露西"/>
+        <constructor-arg name="age" value="22"/>
+        <constructor-arg name="hobby" value="游泳"/>
+    </bean>-->
+    <!--在使用构造器赋值的时候可以省略name属性，但是此时就要求必须严格按照构造器参数的顺序来填写了-->
+    <!--<bean id="person2" class="com.onisun.entity.Person">
+        <constructor-arg  value="2"/>
+        <constructor-arg  value="jack"/>
+        <constructor-arg value="22"/>
+        <constructor-arg  value="游泳"/>
+    </bean>-->
+    <!--如果想不按照顺序来添加参数值，那么可以搭配index属性来使用-->
+    <!--<bean id="person2" class="com.onisun.entity.Person">
+        <constructor-arg  value="26" index="2"/>
+        <constructor-arg  value="2" index="0"/>
+        <constructor-arg  value="游泳" index="3"/>
+        <constructor-arg value="bob" />
+    </bean>-->
+
+<!--    通过命名空间为bean赋值，简化配置文件中属性声明的写法-->
+   <!-- <bean id="person3" class="com.onisun.entity.Person"
+          p:id="3" p:name="alice" p:age="16" p:hobby="羽毛球">
+    </bean>-->
+
+<!--    给复杂类型赋值-->
+
+    <!--<bean id="address" class="com.onisun.entity.Address">
+        <property name="province" value="贵州"/>
+        <property name="city" value="贵阳"/>
+        <property name="town" value="小农村"/>
+    </bean>-->
+
+   <!-- <bean id="person4" class="com.onisun.entity.Person">
+        <property name="name">
+&lt;!&ndash;            赋空值&ndash;&gt;
+            <null>123</null>
+        </property>
+&lt;!&ndash; 给自定义类型赋值 引用外部对象&ndash;&gt;
+&lt;!&ndash;        <property name="address" ref="address"/>&ndash;&gt;
+&lt;!&ndash;        引用内部对象&ndash;&gt;
+        <property name="address" >
+            <bean class="com.onisun.entity.Address">
+                <property name="province" value="贵州2"/>
+                <property name="city" value="贵阳2"/>
+                <property name="town" value="小农村2"/>
+            </bean>
+        </property>
+&lt;!&ndash; 给List集合赋值&ndash;&gt;
+        <property name="books">
+            <list>
+                <bean id="book1" class="com.onisun.entity.Book">
+                    <property name="name" value="人类简史"/>
+                    <property name="author" value="Smith"/>
+                    <property name="price" value="68.8"/>
+                </bean>
+                <bean id="book2" class="com.onisun.entity.Book">
+                    <property name="name" value="人类简史2"/>
+                    <property name="author" value="Smith2"/>
+                    <property name="price" value="68.82"/>
+                </bean>
+&lt;!&ndash;                引用外部Bean&ndash;&gt;
+                <ref bean="book3"/>
+            </list>
+        </property>
+&lt;!&ndash;        给Map赋值&ndash;&gt;
+        <property name="maps" ref="maps"/>
+&lt;!&ndash;        给properties赋值&ndash;&gt;
+        <property name="properties">
+            <props>
+                <prop key="aaa">aaa</prop>
+                <prop key="bbb">ccc</prop>
+            </props>
+        </property>
+&lt;!&ndash;        给set赋值&ndash;&gt;
+        <property name="sets">
+            <set>
+                <value>333</value>
+                <value>111</value>
+                <value>222</value>
+                <value>333</value>
+            </set>
+        </property>
+        <property name="look">
+            <array>
+                <value>你好</value>
+                <value>大妹</value>
+            </array>
+        </property>
     </bean>
+
+
+    <bean id="book3" class="com.onisun.entity.Book">
+        <property name="name" value="人类简史3"/>
+        <property name="author" value="Smith3"/>
+        <property name="price" value="68.83"/>
+    </bean>
+    <util:map id="maps">
+        <entry key="1" value="map的第一个值"/>
+        <entry key="2" value-ref="book3"/>
+        <entry key="3">
+            <bean class="com.onisun.entity.Address">
+                <property name="province" value="江西"/>
+                <property name="city" value="南昌"/>
+                <property name="town" value="平阳"/>
+            </bean>
+        </entry>
+    </util:map>-->
+
+<!--    表达继承关系-->
+    <!--<bean id="person5" class="com.onisun.entity.Person">
+        <property name="id" value="1"/>
+        <property name="name" value="小莉"/>
+        <property name="age" value="18"/>
+        <property name="hobby" value="干饭"/>
+    </bean>-->
+<!--    表示person6继承自person5-->
+    <!--<bean id="person6" class="com.onisun.entity.Person" parent="person5">
+        <property name="name" value="小小莉"/>
+        <property name="hobby" value="大爱干饭"/>
+    </bean>-->
+
+<!--    不需要被实例化 abstract-->
+    <!--<bean id="person7" class="com.onisun.entity.Person" abstract="true">
+        <property name="name" value="小小莉"/>
+        <property name="hobby" value="大爱干饭"/>
+    </bean>-->
+
+<!--    bean的作用域控制 默认是Singleton单例的
+        Singleton: 单例的，容器初始化时已经创建好实例对象
+        prototype : 多实例的，获取对象时才会进行实例化。每次都是创建一个新对象
+-->
+<!--    <bean id="persion8" class="com.onisun.entity.Person" scope="prototype"/>-->
+
+    <!--
+        静态工厂的使用：
+        class:指定静态工厂类
+        factory-method:指定哪个方法是工厂方法
+-->
+    <!--<bean id="person9" class="com.onisun.factory.PersonStaticFactory" factory-method="getPerson">
+        &lt;!&ndash; constructor-arg：可以为方法指定参数&ndash;&gt;
+        <constructor-arg value="sam"/>
+    </bean>-->
+
+<!--    实例工厂的使用-->
+<!--    <bean id="personInstanceFacroty" class="com.onisun.factory.PersonInstanceFactory"/>-->
+    <!--
+   factory-bean:指定使用哪个工厂实例
+   factory-method:指定使用哪个工厂实例的方法
+   -->
+    <!--<bean id="person10" class="com.onisun.entity.Person" factory-bean="personInstanceFacroty" factory-method="getPerson">
+        <constructor-arg value="Jacky"/>
+    </bean>-->
+
+<!--    实现了FactoryBean接口的类是Spring中可以识别的工厂类，Spring会自动调用工厂方法创建实例-->
+<!--    <bean id="myfactorybean" class="com.onisun.factory.MyFactoryBean"/>-->
+
+    <!--<bean id="address" class="com.onisun.entity.Address"
+          init-method="init" destroy-method="destroy" scope="prototype"/>
+    -->
+
+<!--   配置bean对象初始化方法的前后处理方法 BeanPostProcessor-->
+    <bean id="address2" class="com.onisun.entity.Address" init-method="init" destroy-method="destroy"/>
+    <bean id="myBeanPostProcessor" class="com.onisun.entity.MyBeanPostProcessor"/>
 </beans>

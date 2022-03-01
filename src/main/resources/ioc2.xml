@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.onisun.entity.Address">
+        <property name="province" value="湖北"/>
+        <property name="city" value="武汉"/>
+        <property name="town" value="武汉大桥"/>
+    </bean>
+    <bean id="person" class="com.onisun.entity.Person" autowire="byName"/>
+    <bean id="person2" class="com.onisun.entity.Person" autowire="byType"/>
+    <bean id="person3" class="com.onisun.entity.Person" autowire="constructor"/>
+
+<!--    SpEL的使用-->
+    <bean id="person4" class="com.onisun.entity.Person">
+        <property name="age" value="#{36/3}"/>
+        <property name="name" value="#{address.city}"/>
+        <property name="address" value="#{address}"/>
+        <property name="hobby" value="#{address.destroy()}"/>
+    </bean>
+</beans>
