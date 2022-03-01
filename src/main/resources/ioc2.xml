@@ -17,6 +17,6 @@
         <property name="age" value="#{36/3}"/>
         <property name="name" value="#{address.city}"/>
         <property name="address" value="#{address}"/>
-        <property name="hobby" value="#{address.destroy()}"/>
+        <property name="hobby" value="#{address.init()}"/>
     </bean>
 </beans>
