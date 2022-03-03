@@ -1,5 +1,6 @@
 package com.onisun.util;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
@@ -44,25 +45,38 @@ public class LogUtil {
     }
 */
 
-    @Before("execution( public Integer com.onisun.service.impl.CalcImpl.*(..))")
-    public static void start(){
-        System.out.println("方法开始执行：参数是");
+    @Pointcut("execution( public Integer com.onisun.service.impl.CalcImpl.*(..))")
+    public void myPointCut(){
+
     }
 
-    @AfterReturning("execution( public Integer com.onisun.service.impl.CalcImpl.*(..))")
-    public static void stop(){
-        System.out.println("方法执行结束，结果是：");
+//    @Before("execution( public Integer com.onisun.service.impl.CalcImpl.*(..))")
+    @Before("myPointCut()")
+    public static void start(JoinPoint joinPoint){
+        Object[] args = joinPoint.getArgs();
+        String methodName = joinPoint.getSignature().getName();
+        System.out.println(methodName + "方法开始执行：参数是" + Arrays.asList(args));
+    }
+
+    @AfterReturning(value = "execution( public Integer com.onisun.service.impl.CalcImpl.*(..))",returning = "result" )
+    public static void stop(JoinPoint joinPoint,int result){
+        String methodName = joinPoint.getSignature().getName();
+        System.out.println(methodName + "方法执行结束，结果是：" + result);
     }
 
     @AfterThrowing("execution( public Integer com.onisun.service.impl.CalcImpl.*(..))")
-    public static void logException(){
-        System.out.println("方法抛出异常：");
+    public static void logException(JoinPoint joinPoint){
+        String methodName = joinPoint.getSignature().getName();
+        System.out.println(methodName + "方法抛出异常：");
     }
 
     @After("execution( public Integer com.onisun.service.impl.CalcImpl.*(..))")
-    public static void logFinally(){
-        System.out.println("方法执行结束。。。。。over");
+    public static void logFinally(JoinPoint joinPoint){
+        String methodName = joinPoint.getSignature().getName();
+        System.out.println(methodName + "方法执行结束。。。。。over");
 
     }
+
+
 
 }
