@@ -11,6 +11,8 @@
     <modules>
         <module>annotation</module>
         <module>SpringAOP</module>
+        <module>SpringJdbcTemplate</module>
+        <module>SpringTransaction</module>
     </modules>
 
     <dependencies>
