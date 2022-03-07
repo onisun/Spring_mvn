@@ -4,6 +4,7 @@ import com.onisun.ta.dao.BookDao;
 import com.onisun.ta.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -21,7 +22,7 @@ public class BookServiceImpl implements BookService {
      * @param userName
      * @param bookId
      */
-/*    @Transactional
+   @Transactional( )
     public void CheckOut(String userName, int bookId) {
         //减库存
         bookDao.updateStock(bookId);
@@ -31,7 +32,7 @@ public class BookServiceImpl implements BookService {
         //从用户余额中减去书的价格
         bookDao.updateBalance(userName,price);
 
-    }*/
+    }
 
 
         /**
@@ -39,7 +40,7 @@ public class BookServiceImpl implements BookService {
          * @param userName
          * @param bookId
          */
-        @Transactional(timeout = 3,readOnly = true)
+   /*     @Transactional(timeout = 3,readOnly = true)
         public void CheckOut(String userName, int bookId) {
             //减库存
             bookDao.updateStock(bookId);
@@ -52,5 +53,5 @@ public class BookServiceImpl implements BookService {
             }
             //从用户余额中减去书的价格
             bookDao.updateBalance(userName,price);
-        }
+        }*/
 }
